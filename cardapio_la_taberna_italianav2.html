@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Taberna Italiana — Cardápio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;--gold-light:#E8D5A0;--gold-dark:#8B6914;
+  --cream:#FAF7F0;--dark:#1A1208;--red-wine:#6B1E2E;
+  --text:#2D2011;--muted:#7A6A52;--border:rgba(201,168,76,0.25);
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);font-family:'Jost',sans-serif;color:var(--text);min-height:100vh}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#1A1208 0%,#2D1F10 50%,#3D2415 100%);padding:2.5rem 1.5rem 2rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(201,168,76,.03) 30px,rgba(201,168,76,.03) 31px)}
+.hero-ornament{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:13px;letter-spacing:.35em;text-transform:uppercase;opacity:.8;margin-bottom:.5rem}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,3rem);font-weight:700;color:#FAF7F0;line-height:1.1;margin-bottom:.3rem}
+.hero-title em{font-style:italic;color:var(--gold-light)}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:rgba(250,247,240,.55);margin-bottom:1.5rem}
+.hero-divider{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:1.5rem}
+.hero-divider span{height:1px;width:50px;background:var(--gold);opacity:.5}
+.hero-divider i{color:var(--gold);font-size:14px;opacity:.8}
+.location-badge{font-size:12px;color:rgba(250,247,240,.5);letter-spacing:.1em}
+
+/* NAV */
+.nav-tabs{display:flex;overflow-x:auto;background:#120D07;padding:0 1rem;border-bottom:1px solid rgba(201,168,76,.2);scrollbar-width:none;position:sticky;top:0;z-index:100}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{flex-shrink:0;padding:.85rem 1.1rem;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(250,247,240,.4);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap;display:flex;align-items:center;gap:7px}
+.nav-tab:hover{color:var(--gold-light)}
+.nav-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-tab i{font-size:15px}
+
+/* SECTIONS */
+.section{display:none;padding:2rem 1.25rem;max-width:680px;margin:0 auto}
+.section.active{display:block}
+.section-header{text-align:center;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.section-label{font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.section-title{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:400;color:var(--text);line-height:1.2}
+.section-desc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--muted);margin-top:.4rem}
+
+/* ITEMS */
+.menu-category{margin-bottom:2rem}
+.category-label{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.category-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.menu-item{display:flex;justify-content:space-between;align-items:flex-start;padding:1rem 0;border-bottom:1px solid rgba(201,168,76,.1);gap:1rem}
+.menu-item:last-child{border-bottom:none}
+.item-info{flex:1}
+.item-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;color:var(--text);margin-bottom:3px}
+.item-name em{font-style:italic;color:var(--muted);font-size:.9rem}
+.item-desc{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--muted);line-height:1.5}
+.item-badge{font-size:10px;padding:2px 8px;border-radius:20px;font-family:'Jost',sans-serif;letter-spacing:.05em;font-weight:500;display:inline-block;margin-top:4px}
+.badge-chef{background:rgba(201,168,76,.12);color:var(--gold-dark);border:1px solid rgba(201,168,76,.3)}
+.badge-veg{background:rgba(60,110,30,.1);color:#3C6E1E;border:1px solid rgba(60,110,30,.2)}
+.badge-new{background:rgba(107,30,46,.1);color:var(--red-wine);border:1px solid rgba(107,30,46,.2)}
+.item-price{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--gold-dark);white-space:nowrap;padding-top:1px}
+
+/* VINHOS */
+.wine-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;display:flex;gap:1rem;align-items:flex-start;margin-bottom:.75rem}
+.wine-flag{font-size:1.5rem;flex-shrink:0;margin-top:2px}
+.wine-info{flex:1}
+.wine-name{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text);margin-bottom:2px}
+.wine-region{font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.wine-notes{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:var(--muted)}
+.wine-prices{text-align:right;flex-shrink:0}
+.wine-price-tag{font-family:'Jost',sans-serif;font-size:10px;color:var(--muted);display:block}
+.wine-price{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--red-wine);display:block;margin-bottom:4px}
+.wine-type-tag{font-size:10px;padding:2px 8px;border-radius:20px;font-family:'Jost',sans-serif;display:inline-block;margin-bottom:4px}
+.tinto{background:rgba(107,30,46,.1);color:var(--red-wine);border:1px solid rgba(107,30,46,.2)}
+.branco{background:rgba(201,168,76,.1);color:var(--gold-dark);border:1px solid rgba(201,168,76,.2)}
+.rose{background:rgba(210,100,130,.1);color:#9B3A5E;border:1px solid rgba(210,100,130,.2)}
+.espumante{background:rgba(80,140,180,.1);color:#2A6A8A;border:1px solid rgba(80,140,180,.2)}
+
+/* SOBREMESA HIGHLIGHT */
+.sob-highlight{background:#fff;border-radius:8px;border:1px solid var(--border);overflow:hidden;margin-bottom:.75rem}
+.sob-top{background:#1A1208;padding:.5rem 1rem;display:flex;align-items:center;gap:8px}
+.sob-top span{font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+.sob-body{padding:.5rem 1.25rem}
+
+/* CTA */
+.reserve-cta{background:#1A1208;border-radius:10px;padding:1.5rem;text-align:center;margin-top:2rem;border:1px solid rgba(201,168,76,.2)}
+.reserve-cta p{font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(250,247,240,.6);font-size:.95rem;margin-bottom:.75rem}
+.reserve-btn{background:var(--gold);color:#1A1208;border:none;padding:.65rem 1.75rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:opacity .2s;text-decoration:none;display:inline-block}
+.reserve-btn:hover{opacity:.85}
+
+/* FOOTER */
+footer{text-align:center;padding:2rem 1rem;border-top:1px solid var(--border);margin-top:1rem}
+footer p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.85rem;color:var(--muted);line-height:1.8}
+footer .gold{color:var(--gold)}
+
+@media(max-width:480px){
+  .hero-title{font-size:2rem}
+  .nav-tab{padding:.75rem .85rem;font-size:11px}
+  .wine-card{flex-direction:column;gap:.5rem}
+  .wine-prices{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <p class="hero-ornament">Ristorante Italiano · Piedade · Beira-Mar</p>
+  <h1 class="hero-title">La <em>Taberna</em><br>Italiana</h1>
+  <p class="hero-sub">Cucina autentica con anima</p>
+  <div class="hero-divider">
+    <span></span>
+    <i class="ti ti-leaf" aria-hidden="true"></i>
+    <span></span>
+  </div>
+  <p class="location-badge">📍 Piedade, Pernambuco</p>
+</header>
+
+<nav class="nav-tabs" role="tablist" aria-label="Seções do cardápio">
+  <button class="nav-tab active" onclick="show('antipasti')" aria-selected="true"><i class="ti ti-cheese"></i> Antipasti</button>
+  <button class="nav-tab" onclick="show('massas')"><i class="ti ti-bowl"></i> Massas</button>
+  <button class="nav-tab" onclick="show('pizzas')"><i class="ti ti-circle"></i> Pizzas</button>
+  <button class="nav-tab" onclick="show('carnes')"><i class="ti ti-flame"></i> Carnes & Peixes</button>
+  <button class="nav-tab" onclick="show('sobremesas')"><i class="ti ti-ice-cream"></i> Sobremesas</button>
+  <button class="nav-tab" onclick="show('vinhos')"><i class="ti ti-bottle"></i> Carta de Vinhos</button>
+</nav>
+
+<main>
+
+<!-- ANTIPASTI -->
+<section id="antipasti" class="section active">
+  <div class="section-header">
+    <p class="section-label">Per iniziare</p>
+    <h2 class="section-title">Antipasti</h2>
+    <p class="section-desc">Entradas da casa para abrir o apetite</p>
+  </div>
+  <div class="menu-category">
+    <p class="category-label">Frios & Tábuas</p>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Tábua de Frios Italiana</p>
+        <p class="item-desc">Presunto de Parma, salame, copa, queijo grana padano e azeitonas marinadas</p>
+        <span class="item-badge badge-chef">★ Chef indica</span>
+      </div>
+      <p class="item-price">R$ 78</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Burrata <em>pugliese</em></p>
+        <p class="item-desc">Burrata cremosa com tomate-cereja assado, manjericão fresco e azeite de oliva extra-virgem</p>
+      </div>
+      <p class="item-price">R$ 65</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Bruschetta al Pomodoro</p>
+        <p class="item-desc">Fatias de pão ciabatta grelhado com tomate concassé, alho, manjericão e azeite</p>
+        <span class="item-badge badge-veg">♣ Vegetariano</span>
+      </div>
+      <p class="item-price">R$ 38</p>
+    </div>
+  </div>
+  <div class="menu-category">
+    <p class="category-label">Quentes</p>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Polpette al Sugo</p>
+        <p class="item-desc">Almôndegas artesanais ao molho de tomate San Marzano e ervas italianas</p>
+        <span class="item-badge badge-chef">★ Chef indica</span>
+      </div>
+      <p class="item-price">R$ 55</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Arancini di Risotto</p>
+        <p class="item-desc">Bolinhos fritos de risotto de queijo e açafrão com molho arrabiata</p>
+      </div>
+      <p class="item-price">R$ 48</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Carpaccio di Manzo</p>
+        <p class="item-desc">Filé mignon fatiado finamente, rúcula, alcaparras, parmesão e limão siciliano</p>
+        <span class="item-badge badge-new">✦ Novidade</span>
+      </div>
+      <p class="item-price">R$ 69</p>
+    </div>
+  </div>
+  <div class="reserve-cta">
+    <p>Reserve sua mesa e viva uma noite italiana inesquecível à beira-mar</p>
+    <a class="reserve-btn" href="https://wa.me/5581981817191" target="_blank">
+      Reservar Mesa
+    </a>
+  </div>
+</section>
+
+<!-- MASSAS -->
+<section id="massas" class="section">
+  <div class="section-header">
+    <p class="section-label">La pasta</p>
+    <h2 class="section-title">Massas</h2>
+    <p class="section-desc">Massas caseiras produzidas diariamente com semolina italiana</p>
+  </div>
+  <div class="menu-category">
+    <p class="category-label">Massas Frescas Artesanais</p>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Tagliatelle al Ragù</p>
+        <p class="item-desc">Talharim fresco com ragù bolognese de carne bovina cozida lentamente por 4 horas</p>
+        <span class="item-badge badge-chef">★ Chef indica</span>
+      </div>
+      <p class="item-price">R$ 72</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Cacio e Pepe</p>
+        <p class="item-desc">Espaguete com pecorino romano, parmesão e pimenta-do-reino recém-moída — receita romana tradicional</p>
+        <span class="item-badge badge-veg">♣ Vegetariano</span>
+      </div>
+      <p class="item-price">R$ 64</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Pappardelle ai Funghi</p>
+        <p class="item-desc">Massa larga ao creme de cogumelos porcini, funghi secchi e tomilho fresco</p>
+        <span class="item-badge badge-veg">♣ Vegetariano</span>
+      </div>
+      <p class="item-price">R$ 68</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Linguine all'Astice</p>
+        <p class="item-desc">Linguine com lagostim fresco, tomate-cereja, alho, vinho branco e manjericão</p>
+        <span class="item-badge badge-chef">★ Chef indica</span>
+      </div>
+      <p class="item-price">R$ 98</p>
+    </div>
+  </div>
+  <div class="menu-category">
+    <p class="category-label">Massas Recheadas</p>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Ravioli di Ricotta e Spinaci</p>
+        <p class="item-desc">Ravióli recheado de ricota e espinafre ao molho de manteiga e sálvia</p>
+        <span class="item-badge badge-veg">♣ Vegetariano</span>
+      </div>
+      <p class="item-price">R$ 69</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Tortelloni di Carne</p>
+        <p class="item-desc">Tortelloni recheado de carne ao molho sugo lento com ervas e parmesão</p>
+      </div>
+      <p class="item-price">R$ 75</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Lasagna della Nonna</p>
+        <p class="item-desc">Lasanha em camadas com ragù, béchamel artesanal, funghi e gratinada com parmesão</p>
+        <span class="item-badge badge-new">✦ Novidade</span>
+      </div>
+      <p class="item-price">R$ 79</p>
+    </div>
+  </div>
+</section>
+
+<!-- PIZZAS -->
+<section id="pizzas" class="section">
+  <div class="section-header">
+    <p class="section-label">La pizza</p>
+    <h2 class="section-title">Pizzas Artesanais</h2>
+    <p class="section-desc">Massa de fermentação lenta 48h, assada em forno a lenha</p>
+  </div>
+  <div class="menu-category">
+    <p class="category-label">Clássicas</p>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Margherita D.O.P.</p>
+        <p class="item-desc">Molho San Marzano, mozzarella di bufala, manjericão fresco, azeite extra-virgem</p>
+        <span class="item-badge badge-veg">♣ Vegetariano</span>
+      </div>
+      <p class="item-price">R$ 68</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Quattro Formaggi</p>
+        <p class="item-desc">Mozzarella, gorgonzola, taleggio e grana padano com mel de trufas</p>
+        <span class="item-badge badge-chef">★ Chef indica</span>
+      </div>
+      <p class="item-price">R$ 79</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Diavola</p>
+        <p class="item-desc">Molho de tomate, mozzarella, salame picante calabrese e pimentão vermelho</p>
+      </div>
+      <p class="item-price">R$ 75</p>
+    </div>
+  </div>
+  <div class="menu-category">
+    <p class="category-label">Especiais da Casa</p>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Tartufo e Funghi</p>
+        <p class="item-desc">Base de creme trufado, cogumelos shitake e porcini, mozzarella e rúcula fresca</p>
+        <span class="item-badge badge-chef">★ Chef indica</span>
+      </div>
+      <p class="item-price">R$ 92</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Prosciutto e Fichi</p>
+        <p class="item-desc">Base de requeijão, presunto de Parma, figo fresco, rúcula e lascas de parmesão</p>
+        <span class="item-badge badge-new">✦ Novidade</span>
+      </div>
+      <p class="item-price">R$ 88</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Salmone Affumicato</p>
+        <p class="item-desc">Base de cream cheese, salmão defumado, alcaparras, cebola-roxa e dill</p>
+      </div>
+      <p class="item-price">R$ 89</p>
+    </div>
+  </div>
+</section>
+
+<!-- CARNES -->
+<section id="carnes" class="section">
+  <div class="section-header">
+    <p class="section-label">Secondi piatti</p>
+    <h2 class="section-title">Carnes & Peixes</h2>
+    <p class="section-desc">Pratos principais com ingredientes selecionados</p>
+  </div>
+  <div class="menu-category">
+    <p class="category-label">Carnes</p>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Saltimbocca alla Romana</p>
+        <p class="item-desc">Medalhão de vitela com presunto de Parma e sálvia, ao molho de vinho branco e manteiga</p>
+        <span class="item-badge badge-chef">★ Chef indica</span>
+      </div>
+      <p class="item-price">R$ 119</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Bistecca Fiorentina</p>
+        <p class="item-desc">Bife alto de contrafilé grelhado na brasa com alecrim, alho e manteiga de ervas</p>
+      </div>
+      <p class="item-price">R$ 138</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Ossobuco alla Milanese</p>
+        <p class="item-desc">Jarrete de vitela braseado com gremolata e risotto de açafrão</p>
+        <span class="item-badge badge-new">✦ Novidade</span>
+      </div>
+      <p class="item-price">R$ 125</p>
+    </div>
+  </div>
+  <div class="menu-category">
+    <p class="category-label">Peixes & Frutos do Mar</p>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Branzino al Forno</p>
+        <p class="item-desc">Robalo assado com limão siciliano, alcaparras, tomate-cereja e ervas mediterrâneas</p>
+        <span class="item-badge badge-chef">★ Chef indica</span>
+      </div>
+      <p class="item-price">R$ 115</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Fritto Misto di Mare</p>
+        <p class="item-desc">Lula, camarão e mariscos empanados e fritos com aioli de limão e salada verde</p>
+      </div>
+      <p class="item-price">R$ 105</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Salmone alla Griglia</p>
+        <p class="item-desc">Salmão grelhado com molho de alcaparras e limão, purê de batata-doce e aspargos</p>
+      </div>
+      <p class="item-price">R$ 99</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOBREMESAS -->
+<section id="sobremesas" class="section">
+  <div class="section-header">
+    <p class="section-label">Dolci</p>
+    <h2 class="section-title">Sobremesas</h2>
+    <p class="section-desc">Doces italianos para o grand finale</p>
+  </div>
+  <div class="sob-highlight">
+    <div class="sob-top">
+      <i class="ti ti-star" style="color:var(--gold);font-size:13px"></i>
+      <span>Clássicos Italianos</span>
+    </div>
+    <div class="sob-body">
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Tiramisù della Casa</p>
+          <p class="item-desc">Receita original com mascarpone, savoiardi, espresso e cacau — servido na taça</p>
+          <span class="item-badge badge-chef">★ Chef indica</span>
+        </div>
+        <p class="item-price">R$ 38</p>
+      </div>
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Panna Cotta</p>
+          <p class="item-desc">Creme gelado de baunilha com coulis de frutas vermelhas e hortelã</p>
+          <span class="item-badge badge-veg">♣ Vegetariano</span>
+        </div>
+        <p class="item-price">R$ 34</p>
+      </div>
+      <div class="menu-item" style="border:none">
+        <div class="item-info">
+          <p class="item-name">Cannoli Siciliani</p>
+          <p class="item-desc">Cannoli crocante recheado de ricota doce com gotas de chocolate e pistache</p>
+        </div>
+        <p class="item-price">R$ 32</p>
+      </div>
+    </div>
+  </div>
+  <div class="menu-category" style="margin-top:1.5rem">
+    <p class="category-label">Especiais</p>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Semifreddo al Cioccolato</p>
+        <p class="item-desc">Semifreddo de chocolate belga 70% com caramelo salgado e avelãs tostadas</p>
+        <span class="item-badge badge-new">✦ Novidade</span>
+      </div>
+      <p class="item-price">R$ 42</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Affogato al Caffè</p>
+        <p class="item-desc">Bola de sorvete de fior di latte com espresso quente e amaretto</p>
+      </div>
+      <p class="item-price">R$ 29</p>
+    </div>
+    <div class="menu-item">
+      <div class="item-info">
+        <p class="item-name">Gelato Artigianale</p>
+        <p class="item-desc">Duas bolas — sabores: pistache, stracciatella, limone, fragola ou cioccolato</p>
+        <span class="item-badge badge-veg">♣ Vegetariano</span>
+      </div>
+      <p class="item-price">R$ 26</p>
+    </div>
+  </div>
+</section>
+
+<!-- VINHOS -->
+<section id="vinhos" class="section">
+  <div class="section-header">
+    <p class="section-label">La cantina</p>
+    <h2 class="section-title">Carta de Vinhos</h2>
+    <p class="section-desc">Seleção curada de rótulos italianos e sul-americanos</p>
+  </div>
+
+  <div class="menu-category">
+    <p class="category-label">Tintos</p>
+    <div class="wine-card">
+      <span class="wine-flag">🇮🇹</span>
+      <div class="wine-info">
+        <span class="wine-type-tag tinto">Tinto</span>
+        <p class="wine-name">Chianti Classico Riserva</p>
+        <p class="wine-region">Toscana, Itália</p>
+        <p class="wine-notes">Cereja, especiarias e taninos elegantes. Longa persistência</p>
+      </div>
+      <div class="wine-prices">
+        <span class="wine-price-tag">Taça</span><span class="wine-price">R$ 28</span>
+        <span class="wine-price-tag">Garrafa</span><span class="wine-price">R$ 148</span>
+      </div>
+    </div>
+    <div class="wine-card">
+      <span class="wine-flag">🇮🇹</span>
+      <div class="wine-info">
+        <span class="wine-type-tag tinto">Tinto</span>
+        <p class="wine-name">Barolo D.O.C.G.</p>
+        <p class="wine-region">Piemonte, Itália</p>
+        <p class="wine-notes">Rosas secas, alcatrão, violeta. O rei dos vinhos italianos</p>
+      </div>
+      <div class="wine-prices">
+        <span class="wine-price-tag">Garrafa</span><span class="wine-price">R$ 285</span>
+      </div>
+    </div>
+    <div class="wine-card">
+      <span class="wine-flag">🇦🇷</span>
+      <div class="wine-info">
+        <span class="wine-type-tag tinto">Tinto</span>
+        <p class="wine-name">Catena Zapata Malbec</p>
+        <p class="wine-region">Mendoza, Argentina</p>
+        <p class="wine-notes">Ameixa, chocolate amargo e violeta. Redondo e encorpado</p>
+      </div>
+      <div class="wine-prices">
+        <span class="wine-price-tag">Taça</span><span class="wine-price">R$ 24</span>
+        <span class="wine-price-tag">Garrafa</span><span class="wine-price">R$ 125</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-category">
+    <p class="category-label">Brancos</p>
+    <div class="wine-card">
+      <span class="wine-flag">🇮🇹</span>
+      <div class="wine-info">
+        <span class="wine-type-tag branco">Branco</span>
+        <p class="wine-name">Pinot Grigio delle Venezie</p>
+        <p class="wine-region">Friuli, Itália</p>
+        <p class="wine-notes">Pêra, maçã verde e flores brancas. Leve e refrescante</p>
+      </div>
+      <div class="wine-prices">
+        <span class="wine-price-tag">Taça</span><span class="wine-price">R$ 22</span>
+        <span class="wine-price-tag">Garrafa</span><span class="wine-price">R$ 118</span>
+      </div>
+    </div>
+    <div class="wine-card">
+      <span class="wine-flag">🇮🇹</span>
+      <div class="wine-info">
+        <span class="wine-type-tag branco">Branco</span>
+        <p class="wine-name">Gavi di Gavi D.O.C.G.</p>
+        <p class="wine-region">Piemonte, Itália</p>
+        <p class="wine-notes">Limão, amêndoa e mineralidade elegante. Excelente com frutos do mar</p>
+      </div>
+      <div class="wine-prices">
+        <span class="wine-price-tag">Garrafa</span><span class="wine-price">R$ 155</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-category">
+    <p class="category-label">Rosé & Espumantes</p>
+    <div class="wine-card">
+      <span class="wine-flag">🇮🇹</span>
+      <div class="wine-info">
+        <span class="wine-type-tag espumante">Espumante</span>
+        <p class="wine-name">Prosecco di Valdobbiadene</p>
+        <p class="wine-region">Veneto, Itália</p>
+        <p class="wine-notes">Pêssego, maçã e borbulhas finas. Ideal para aperitivo</p>
+      </div>
+      <div class="wine-prices">
+        <span class="wine-price-tag">Taça</span><span class="wine-price">R$ 26</span>
+        <span class="wine-price-tag">Garrafa</span><span class="wine-price">R$ 135</span>
+      </div>
+    </div>
+    <div class="wine-card">
+      <span class="wine-flag">🇫🇷</span>
+      <div class="wine-info">
+        <span class="wine-type-tag rose">Rosé</span>
+        <p class="wine-name">Provence Rosé</p>
+        <p class="wine-region">Provence, França</p>
+        <p class="wine-notes">Morango, toranja e pétalas de rosa. Elegante e fresco</p>
+      </div>
+      <div class="wine-prices">
+        <span class="wine-price-tag">Taça</span><span class="wine-price">R$ 25</span>
+        <span class="wine-price-tag">Garrafa</span><span class="wine-price">R$ 128</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="reserve-cta">
+    <p>Nosso sommelier pode sugerir o vinho perfeito para sua refeição</p>
+    <a class="reserve-btn" href="https://wa.me/5581981817191" target="_blank">
+      Falar com a Casa
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p class="gold">— La Taberna Italiana —</p>
+  <p>📍 Piedade, Pernambuco · Beira-Mar</p>
+  <p>Reservas pelo Instagram <a href="https://wa.me/5581981817191" style="color:var(--gold)">@latabernaitaliana</a></p>
+  <p style="margin-top:.5rem;font-size:.75rem">Preços sujeitos a alteração. Informe alergias ao nosso garçom.</p>
+</footer>
+
+<script>
+function show(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>{t.classList.remove('active');t.setAttribute('aria-selected','false')});
+  document.getElementById(id).classList.add('active');
+  const ids=['antipasti','massas','pizzas','carnes','sobremesas','vinhos'];
+  const tabs=document.querySelectorAll('.nav-tab');
+  const i=ids.indexOf(id);
+  if(tabs[i]){tabs[i].classList.add('active');tabs[i].setAttribute('aria-selected','true')}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
